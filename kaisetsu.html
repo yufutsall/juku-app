@@ -112,6 +112,47 @@
   /* ── TOAST ── */
   .toast { position:fixed; bottom:24px; right:24px; z-index:500; background:var(--text); color:white; padding:10px 18px; border-radius:var(--radius); font-size:13px; font-weight:500; transform:translateY(80px); opacity:0; transition:all 0.25s; display:flex; align-items:center; gap:8px; }
   .toast.show { transform:translateY(0); opacity:1; }
+
+  /* ── MOBILE MENU BUTTON ── */
+  .menu-btn { display:none; align-items:center; justify-content:center; width:36px; height:36px; border-radius:var(--radius); border:1px solid var(--border); background:var(--surface2); cursor:pointer; flex-shrink:0; }
+  .menu-btn i { font-size:18px; color:var(--text2); }
+
+  /* ── OVERLAY ── */
+  .sidebar-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:200; }
+  .sidebar-overlay.show { display:block; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width:640px) {
+    body { overflow:auto; height:auto; min-height:100vh; }
+    .layout { overflow:visible; flex-direction:column; }
+
+    /* Header */
+    .header { padding:0 14px; gap:10px; }
+    .header-logo span { display:none; }
+    .header-search { min-width:0; flex:1; }
+    .menu-btn { display:flex; }
+
+    /* Sidebar → drawer */
+    .sidebar {
+      position:fixed; top:0; left:0; bottom:0; z-index:300;
+      width:80vw; max-width:300px;
+      transform:translateX(-100%);
+      transition:transform 0.25s ease;
+      box-shadow:4px 0 20px rgba(0,0,0,0.12);
+    }
+    .sidebar.open { transform:translateX(0); }
+
+    /* Main */
+    .main { flex:1; overflow:visible; min-height:0; }
+    .content-header { padding:12px 16px; }
+    .content-area { padding:16px; overflow:visible; }
+    .video-grid { max-width:100%; }
+
+    /* Player */
+    .player-display { border-radius:12px; }
+    .player-info-title { font-size:14px; }
+  }
+
 </style>
 </head>
 <body>
@@ -138,6 +179,7 @@
 
 <!-- HEADER -->
 <div class="header">
+  <div class="menu-btn" onclick="toggleSidebar()"><i class="ti ti-menu-2"></i></div>
   <div class="header-logo">
     <i class="ti ti-school"></i>
     入試解説動画
@@ -150,9 +192,11 @@
   <div class="header-spacer"></div>
 </div>
 
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
 <!-- LAYOUT -->
 <div class="layout">
-  <div class="sidebar">
+  <div class="sidebar" id="sidebar">
     <div class="sidebar-scroll" id="sidebarTree"></div>
   </div>
   <div class="main">
@@ -333,10 +377,19 @@ function toggleTree(row, id) {
   }
 }
 
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('show');
+}
+
 function selectLeaf(schoolId, yearId, subjectKey) {
   currentSel = { schoolId, yearId, subjectKey };
   renderTree();
   applySelection();
+  // スマホのときは選択後にサイドバーを閉じる
+  if (window.innerWidth <= 640) toggleSidebar();
 }
 
 function applySelection() {

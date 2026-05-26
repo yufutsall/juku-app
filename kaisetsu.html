@@ -307,26 +307,72 @@ body {
 /* ── TOP SCREEN ── */
 .top-screen { position:fixed; inset:0; background:var(--bg); z-index:100; display:flex; flex-direction:column; overflow-y:auto; }
 .top-screen.hidden { display:none; }
-.top-hero { background:linear-gradient(135deg, #15803d 0%, #22c55e 100%); padding:48px 32px 40px; text-align:center; color:white; }
-.top-hero-icon { width:64px; height:64px; background:rgba(255,255,255,0.2); border-radius:18px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
-.top-hero-icon i { font-size:34px; color:white; }
-.top-hero h1 { font-size:22px; font-weight:900; margin-bottom:6px; }
-.top-hero p { font-size:13px; opacity:0.85; }
-.top-body { padding:32px 24px 48px; max-width:640px; margin:0 auto; width:100%; }
-.top-label { font-size:11px; font-weight:700; color:var(--text3); letter-spacing:0.08em; margin-bottom:16px; }
-.school-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
-.school-card { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:22px 16px; display:flex; flex-direction:column; align-items:center; gap:12px; cursor:pointer; transition:border-color 0.15s,box-shadow 0.15s,transform 0.12s; text-align:center; }
-.school-card:hover { border-color:var(--accent); box-shadow:var(--shadow); transform:translateY(-2px); }
-.school-card:active { transform:translateY(0); }
-.school-card-logo { width:52px; height:52px; object-fit:contain; }
-.school-card-logo-icon { width:52px; height:52px; border-radius:14px; background:var(--surface2); display:flex; align-items:center; justify-content:center; }
-.school-card-logo-icon i { font-size:26px; color:var(--text3); }
-.school-card-name { font-size:14px; font-weight:700; color:var(--text); }
+
+/* Hero */
+.top-hero { background:linear-gradient(135deg, #15803d 0%, #22c55e 100%); padding:36px 32px 32px; color:white; }
+.top-hero-inner { max-width:640px; margin:0 auto; display:flex; align-items:center; gap:16px; }
+.top-hero-icon { width:56px; height:56px; background:rgba(255,255,255,0.2); border-radius:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.top-hero-icon i { font-size:28px; color:white; }
+.top-hero h1 { font-size:20px; font-weight:900; margin-bottom:3px; }
+.top-hero p { font-size:12px; opacity:0.85; }
+
+/* Steps bar */
+.top-steps { background:rgba(0,0,0,0.15); }
+.top-steps-inner { max-width:640px; margin:0 auto; display:flex; padding:0 32px; }
+.top-step { flex:1; padding:10px 0; font-size:12px; font-weight:600; color:rgba(255,255,255,0.5); display:flex; align-items:center; gap:6px; border-bottom:2px solid transparent; }
+.top-step.active { color:white; border-bottom-color:white; }
+.top-step.done { color:rgba(255,255,255,0.7); }
+.top-step-num { width:20px; height:20px; border-radius:50%; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; font-size:11px; flex-shrink:0; }
+.top-step.active .top-step-num { background:white; color:var(--accent); }
+.top-step.done .top-step-num { background:rgba(255,255,255,0.5); }
+
+/* Body */
+.top-body { padding:28px 24px 48px; max-width:640px; margin:0 auto; width:100%; }
+.top-section { display:none; }
+.top-section.active { display:block; }
+.top-section-header { display:flex; align-items:center; gap:10px; margin-bottom:20px; }
+.top-back-btn { display:flex; align-items:center; gap:4px; font-size:12px; color:var(--text3); cursor:pointer; padding:6px 10px; border-radius:8px; border:1px solid var(--border); background:var(--surface); transition:background 0.1s; }
+.top-back-btn:hover { background:var(--surface2); color:var(--text); }
+.top-section-title { font-size:13px; font-weight:700; color:var(--text2); }
+.top-selected-info { display:flex; align-items:center; gap:8px; padding:10px 14px; background:var(--accent-light); border-radius:var(--radius); margin-bottom:20px; font-size:13px; color:var(--accent-dark); font-weight:500; }
+.top-selected-info img { width:20px; height:20px; object-fit:contain; }
+
+/* Cards */
+.sel-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.sel-card { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 14px; display:flex; flex-direction:column; align-items:center; gap:10px; cursor:pointer; transition:border-color 0.15s,box-shadow 0.15s,transform 0.12s; text-align:center; }
+.sel-card:hover { border-color:var(--accent); box-shadow:var(--shadow); transform:translateY(-2px); }
+.sel-card:active { transform:translateY(0); }
+.sel-card-logo { width:48px; height:48px; object-fit:contain; }
+.sel-card-logo-icon { width:48px; height:48px; border-radius:12px; background:var(--surface2); display:flex; align-items:center; justify-content:center; }
+.sel-card-logo-icon i { font-size:24px; color:var(--text3); }
+.sel-card-name { font-size:14px; font-weight:700; color:var(--text); line-height:1.3; }
+.sel-card-sub { font-size:11px; color:var(--text3); }
+
+/* Year cards */
+.year-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.year-card { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:24px 16px; display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; transition:border-color 0.15s,box-shadow 0.15s,transform 0.12s; text-align:center; }
+.year-card:hover { border-color:var(--accent); box-shadow:var(--shadow); transform:translateY(-2px); }
+.year-card:active { transform:translateY(0); }
+.year-card i { font-size:28px; color:var(--text3); }
+.year-card-name { font-size:16px; font-weight:700; color:var(--text); }
+
+/* Subject cards */
+.subj-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.subj-card { border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 14px; display:flex; flex-direction:column; align-items:center; gap:10px; cursor:pointer; transition:border-color 0.15s,box-shadow 0.15s,transform 0.12s; text-align:center; background:var(--surface); }
+.subj-card:hover { box-shadow:var(--shadow); transform:translateY(-2px); }
+.subj-card:active { transform:translateY(0); }
+.subj-card i { font-size:28px; }
+.subj-card-name { font-size:14px; font-weight:700; color:var(--text); }
+.subj-card.has-video { border-color:var(--accent); }
+.subj-card-badge { font-size:10px; font-weight:600; color:var(--accent); background:var(--accent-light); padding:2px 8px; border-radius:10px; }
+
 @media (max-width:640px) {
-  .top-hero { padding:32px 20px 28px; }
-  .top-body { padding:24px 16px 32px; }
-  .school-grid { gap:10px; }
-  .school-card { padding:16px 12px; }
+  .top-hero { padding:24px 16px 20px; }
+  .top-steps-inner { padding:0 16px; }
+  .top-body { padding:20px 16px 40px; }
+  .sel-grid { grid-template-columns:repeat(2,1fr); gap:8px; }
+  .year-grid { gap:8px; }
+  .subj-grid { gap:8px; }
 }
 
 /* ── OVERLAY ── */
@@ -408,13 +454,42 @@ body {
 <!-- TOP SCREEN -->
 <div class="top-screen" id="topScreen">
   <div class="top-hero">
-    <div class="top-hero-icon"><i class="ti ti-school"></i></div>
-    <h1>入試解説動画</h1>
-    <p>高校受験対策 — 学校を選んでください</p>
+    <div class="top-hero-inner">
+      <div class="top-hero-icon"><i class="ti ti-school"></i></div>
+      <div>
+        <h1>入試解説動画</h1>
+        <p>高校受験対策</p>
+      </div>
+    </div>
+    <div class="top-steps">
+      <div class="top-steps-inner">
+        <div class="top-step active" id="stepTab1"><div class="top-step-num">1</div>学校</div>
+        <div class="top-step" id="stepTab2"><div class="top-step-num">2</div>年度</div>
+        <div class="top-step" id="stepTab3"><div class="top-step-num">3</div>科目</div>
+      </div>
+    </div>
   </div>
   <div class="top-body">
-    <div class="top-label">高校一覧</div>
-    <div class="school-grid" id="schoolGrid"></div>
+    <!-- Step 1: 学校選択 -->
+    <div class="top-section active" id="step-school">
+      <div class="sel-grid" id="schoolGrid"></div>
+    </div>
+    <!-- Step 2: 年度選択 -->
+    <div class="top-section" id="step-year">
+      <div class="top-section-header">
+        <div class="top-back-btn" onclick="goBack(1)"><i class="ti ti-arrow-left"></i> 学校に戻る</div>
+      </div>
+      <div class="top-selected-info" id="yearSelInfo"></div>
+      <div class="year-grid" id="yearGrid"></div>
+    </div>
+    <!-- Step 3: 科目選択 -->
+    <div class="top-section" id="step-subject">
+      <div class="top-section-header">
+        <div class="top-back-btn" onclick="goBack(2)"><i class="ti ti-arrow-left"></i> 年度に戻る</div>
+      </div>
+      <div class="top-selected-info" id="subjSelInfo"></div>
+      <div class="subj-grid" id="subjGrid"></div>
+    </div>
   </div>
 </div>
 
@@ -511,29 +586,98 @@ window.addEventListener('load', () => {
   if (url && key) initApp(url, key);
 });
 
-// ── TOP SCREEN ──
+// ── TOP SCREEN (3-STEP FLOW) ──
+function showStep(n) {
+  ['step-school','step-year','step-subject'].forEach((id, i) => {
+    const step = i + 1;
+    document.getElementById('stepTab' + step).className =
+      'top-step' + (step === n ? ' active' : step < n ? ' done' : '');
+    document.getElementById(id).className =
+      'top-section' + (step === n ? ' active' : '');
+  });
+}
+
+function goBack(step) {
+  showStep(step);
+}
+
 function renderTopScreen() {
   const grid = document.getElementById('schoolGrid');
   grid.innerHTML = schools.map(school => {
     const logo = SCHOOL_LOGOS[school.name];
     const logoHtml = logo
-      ? `<img class="school-card-logo" src="${logo}" alt="${school.name}">`
-      : `<div class="school-card-logo-icon"><i class="ti ti-building-community"></i></div>`;
-    return `<div class="school-card" onclick="selectSchool('${school.id}')">
+      ? `<img class="sel-card-logo" src="${logo}" alt="${school.name}">`
+      : `<div class="sel-card-logo-icon"><i class="ti ti-building-community"></i></div>`;
+    return `<div class="sel-card" onclick="selectSchool('${school.id}')">
       ${logoHtml}
-      <div class="school-card-name">${school.name}</div>
+      <div class="sel-card-name">${school.name}</div>
     </div>`;
   }).join('');
+  showStep(1);
 }
 
 function selectSchool(schoolId) {
   const school = schools.find(s => s.id === schoolId);
   if (!school || !school.years.length) return;
-  currentSel = {
-    schoolId: school.id,
-    yearId: school.years[0].id,
-    subjectKey: school.subjects[0],
-  };
+  currentSel.schoolId = school.id;
+  currentSel.yearId = null;
+  currentSel.subjectKey = null;
+
+  // 選択済み学校を表示
+  const logo = SCHOOL_LOGOS[school.name];
+  const logoHtml = logo
+    ? `<img src="${logo}" alt="${school.name}" style="width:20px;height:20px;object-fit:contain;">`
+    : `<i class="ti ti-building-community"></i>`;
+  document.getElementById('yearSelInfo').innerHTML = logoHtml + ' ' + school.name;
+
+  // 年度カード生成
+  document.getElementById('yearGrid').innerHTML = school.years.map(yr => `
+    <div class="year-card" onclick="selectYear('${yr.id}')">
+      <i class="ti ti-calendar"></i>
+      <div class="year-card-name">${toReiwa(yr.year)}</div>
+    </div>`).join('');
+
+  showStep(2);
+}
+
+function selectYear(yearId) {
+  const school = schools.find(s => s.id === currentSel.schoolId);
+  if (!school) return;
+  const yr = school.years.find(y => y.id === yearId);
+  if (!yr) return;
+  currentSel.yearId = yr.id;
+  currentSel.subjectKey = null;
+
+  const subs = (yr.subjects && yr.subjects.length > 0) ? yr.subjects : school.subjects;
+
+  // 選択済み情報を表示
+  const logo = SCHOOL_LOGOS[school.name];
+  const logoHtml = logo
+    ? `<img src="${logo}" alt="${school.name}" style="width:20px;height:20px;object-fit:contain;">`
+    : `<i class="ti ti-building-community"></i>`;
+  document.getElementById('subjSelInfo').innerHTML =
+    logoHtml + ' ' + school.name + ' ／ ' + toReiwa(yr.year);
+
+  // 科目カード生成
+  document.getElementById('subjGrid').innerHTML = subs.map(sk => {
+    const sub = subjectMap[sk];
+    if (!sub) return '';
+    const hasVideo = !!videos[`${yr.id}__${sk}`];
+    return `<div class="subj-card${hasVideo ? ' has-video' : ''}" onclick="selectSubject('${sk}')"
+        style="background:${sub.bg}33;">
+      <i class="ti ${sub.icon}" style="font-size:28px;color:${sub.color};"></i>
+      <div class="subj-card-name">${sub.label}</div>
+      ${hasVideo
+        ? `<div class="subj-card-badge">動画あり</div>`
+        : `<div style="font-size:10px;color:var(--text3);">動画なし</div>`}
+    </div>`;
+  }).join('');
+
+  showStep(3);
+}
+
+function selectSubject(subjectKey) {
+  currentSel.subjectKey = subjectKey;
   document.getElementById('topScreen').classList.add('hidden');
   renderTree();
   applySelection();
@@ -570,13 +714,6 @@ async function loadData() {
       videos[`${v.school_year_id}__${v.subject_key}`] = v;
     });
 
-    if (schools.length > 0 && schools[0].years.length > 0 && schools[0].subjects.length > 0) {
-      currentSel = {
-        schoolId:   schools[0].id,
-        yearId:     schools[0].years[0].id,
-        subjectKey: schools[0].subjects[0],
-      };
-    }
     renderTree();
     renderTopScreen();
   } catch(e) {

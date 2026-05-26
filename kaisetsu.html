@@ -304,6 +304,31 @@ body {
 }
 .toast.show { transform: translateY(0); opacity: 1; }
 
+/* ── TOP SCREEN ── */
+.top-screen { position:fixed; inset:0; background:var(--bg); z-index:100; display:flex; flex-direction:column; overflow-y:auto; }
+.top-screen.hidden { display:none; }
+.top-hero { background:linear-gradient(135deg, #15803d 0%, #22c55e 100%); padding:48px 32px 40px; text-align:center; color:white; }
+.top-hero-icon { width:64px; height:64px; background:rgba(255,255,255,0.2); border-radius:18px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
+.top-hero-icon i { font-size:34px; color:white; }
+.top-hero h1 { font-size:22px; font-weight:900; margin-bottom:6px; }
+.top-hero p { font-size:13px; opacity:0.85; }
+.top-body { padding:32px 24px 48px; max-width:640px; margin:0 auto; width:100%; }
+.top-label { font-size:11px; font-weight:700; color:var(--text3); letter-spacing:0.08em; margin-bottom:16px; }
+.school-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+.school-card { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:22px 16px; display:flex; flex-direction:column; align-items:center; gap:12px; cursor:pointer; transition:border-color 0.15s,box-shadow 0.15s,transform 0.12s; text-align:center; }
+.school-card:hover { border-color:var(--accent); box-shadow:var(--shadow); transform:translateY(-2px); }
+.school-card:active { transform:translateY(0); }
+.school-card-logo { width:52px; height:52px; object-fit:contain; }
+.school-card-logo-icon { width:52px; height:52px; border-radius:14px; background:var(--surface2); display:flex; align-items:center; justify-content:center; }
+.school-card-logo-icon i { font-size:26px; color:var(--text3); }
+.school-card-name { font-size:14px; font-weight:700; color:var(--text); }
+@media (max-width:640px) {
+  .top-hero { padding:32px 20px 28px; }
+  .top-body { padding:24px 16px 32px; }
+  .school-grid { gap:10px; }
+  .school-card { padding:16px 12px; }
+}
+
 /* ── OVERLAY ── */
 .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200; backdrop-filter: blur(2px); }
 .sidebar-overlay.show { display: block; }
@@ -377,6 +402,19 @@ body {
   <div class="header-search">
     <i class="ti ti-search"></i>
     <input type="text" id="searchInput" placeholder="動画を検索..." oninput="renderVideos()">
+  </div>
+</div>
+
+<!-- TOP SCREEN -->
+<div class="top-screen" id="topScreen">
+  <div class="top-hero">
+    <div class="top-hero-icon"><i class="ti ti-school"></i></div>
+    <h1>入試解説動画</h1>
+    <p>高校受験対策 — 学校を選んでください</p>
+  </div>
+  <div class="top-body">
+    <div class="top-label">高校一覧</div>
+    <div class="school-grid" id="schoolGrid"></div>
   </div>
 </div>
 
@@ -473,6 +511,34 @@ window.addEventListener('load', () => {
   if (url && key) initApp(url, key);
 });
 
+// ── TOP SCREEN ──
+function renderTopScreen() {
+  const grid = document.getElementById('schoolGrid');
+  grid.innerHTML = schools.map(school => {
+    const logo = SCHOOL_LOGOS[school.name];
+    const logoHtml = logo
+      ? `<img class="school-card-logo" src="${logo}" alt="${school.name}">`
+      : `<div class="school-card-logo-icon"><i class="ti ti-building-community"></i></div>`;
+    return `<div class="school-card" onclick="selectSchool('${school.id}')">
+      ${logoHtml}
+      <div class="school-card-name">${school.name}</div>
+    </div>`;
+  }).join('');
+}
+
+function selectSchool(schoolId) {
+  const school = schools.find(s => s.id === schoolId);
+  if (!school || !school.years.length) return;
+  currentSel = {
+    schoolId: school.id,
+    yearId: school.years[0].id,
+    subjectKey: school.subjects[0],
+  };
+  document.getElementById('topScreen').classList.add('hidden');
+  renderTree();
+  applySelection();
+}
+
 // ── SIDEBAR TOGGLE ──
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
@@ -512,7 +578,7 @@ async function loadData() {
       };
     }
     renderTree();
-    applySelection();
+    renderTopScreen();
   } catch(e) {
     document.getElementById('videoGrid').innerHTML =
       `<div class="empty-state">
